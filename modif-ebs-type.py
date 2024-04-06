@@ -12,17 +12,12 @@ def describe_volume(region):
         volume_id = volume["VolumeId"]
         volume_type = volume["VolumeType"]
 
-        if volume_type == "gp3":
-            print(f"id:{volume_id} e o type:{volume_type} ")
-            print("Volume é do tipe gp3")
-        else:
-            print(f"id:{volume_id} e o type:{volume_type} ")
-            print("Volume é do tipe gp2")
-
-        try:
-            ec2_client.modify_volume(VolumeId=volume_id, VolumeType="gp3")
-        except Exception as e:
-            print(f"An error occurred while modifying volume {volume_id}: {e}")
+        if volume_type != "gp3":
+            try:
+                ec2_client.modify_volume(VolumeId=volume_id, VolumeType="gp3")
+                print(f"modificando tipo do volume: {volume_id}.")
+            except Exception as e:
+                print(f"An error occurred while modifying volume {volume_id}: {e}")
 
 
 regions = ["us-east-1", "sa-east-1"]
