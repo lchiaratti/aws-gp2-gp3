@@ -12,10 +12,10 @@ def describe_volume(region):
         volume_id = volume["VolumeId"]
         volume_type = volume["VolumeType"]
 
-        if volume_type != "gp3":
+        if volume_type == "gp2":
             try:
                 ec2_client.modify_volume(VolumeId=volume_id, VolumeType="gp3")
-                print(f"modificando tipo do volume: {volume_id}.\n")
+                print(f"modificando tipo do volume: {volume_id} para gp3.\n")
             except Exception as e:
                 print(f"An error occurred while modifying volume {volume_id}: {e}")
 
